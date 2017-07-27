@@ -14,7 +14,12 @@
 Route::get('/', function () {
     return view('auth/login');
 });
-
+/*Route::prefix('api/v1')->group(function () {
+    Route::get('users/{id}', '');
+});*/
+ Route::group(['prefix' => 'api/v1'], function () { 
+    Route::get('users/{id}',  'MemberControllerl@show');
+ });
 /* ================== Homepage + Admin Routes ================== */
 
 require __DIR__.'/admin_routes.php';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Member;
+use DB;
 
 use App\Http\Requests;
 
@@ -64,7 +65,20 @@ class MemberControllerl extends Controller
      */
     public function show($id)
     {
-         //
+        //$id = (int) $id;
+        $products = $this->m->where('UserID', $id);
+        //echo "<pre>";
+        //print_r($products);die();   
+        if(!$products){
+            return response()->json(['STATUS'=> false ,'MESSAGE' => 'Not Found', 'CODE'=> 400], 200);
+        }
+        else{
+            return response()->json([
+                    'STATUS'=>'true',
+                    'MESSAGE'=>'record found',
+                    'DATA' => $products
+            ], 200);
+        }       
     }
 
     /**

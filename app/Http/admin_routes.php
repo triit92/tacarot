@@ -12,30 +12,7 @@ Route::get('files/{hash}/{name}', 'LA\UploadsController@get_file');
 |--------------------------------------------------------------------------
 | api Application Routes
 |--------------------------------------------------------------------------
-*/
-Route::group(['middleware' => ['web']], function () {
-	Route::get ('/member', 'MemberControllerl@index');
-	Route::get ('/member/view/{id}', 'MemberControllerl@show');
-	Route::get ('/member/delete/{id}', 'MemberControllerl@destroy' );
-	Route::get ('/member/edit/{id}', 'MemberControllerl@edit');
-	Route::get ('/member/search', 'MemberControllerl@search');
-	Route::post ('/member', 'MemberControllerl@store' );
-	Route::post ('/member/update', 'MemberControllerl@update');
-	Route::get ('/memberall', 'MemberControllerl@all');
-});
-
-Route::group(['middleware' => ['web']], function () {
-	Route::get ('/lovetoday', 'LovetodayController@index');
-	Route::get ('/lovetoday/view/{id}', 'LovetodayController@show');
-	Route::get ('/lovetoday/delete/{id}', 'LovetodayController@destroy' );
-	Route::get ('/lovetoday/edit/{id}', 'LovetodayController@edit');
-	Route::get ('/lovetoday/search', 'LovetodayController@search');
-	Route::post ('/lovetoday', 'LovetodayController@store' );
-	Route::post ('/lovetoday/update', 'LovetodayController@update');
-	Route::get ('/lovetodayall', 'LovetodayController@all');
-});
-
-
+*/ 
 /*
 |--------------------------------------------------------------------------
 | Admin Application Routes
