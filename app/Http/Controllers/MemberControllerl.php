@@ -14,22 +14,7 @@ class MemberControllerl extends Controller
     public function __construct(Member $m){
         $this->m = $m;
     }
-
-    public function all() {
-        
-        $products = $this->m->all();
-        if(!$products){
-            return response()->json(['STATUS'=> false ,'MESSAGE' => 'Not Found', 'CODE'=> 400], 200);
-        }
-        else{
-            return response()->json([
-                    'STATUS'=>'true',
-                    'MESSAGE'=>'record found',
-                    'DATA' => $products
-            ], 200);
-        }
-    }
-
+ 
     public function index()
     {
         die('afsaf');
@@ -40,9 +25,11 @@ class MemberControllerl extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($birthday, $gender)
     {
-        //
+        $item = [
+            'UserID' => 
+        ];
     }
 
     /**
@@ -65,18 +52,16 @@ class MemberControllerl extends Controller
      */
     public function show($id)
     {
-        //$id = (int) $id;
-        $products = $this->m->where('UserID', $id);
-        //echo "<pre>";
-        //print_r($products);die();   
-        if(!$products){
-            return response()->json(['STATUS'=> false ,'MESSAGE' => 'Not Found', 'CODE'=> 400], 200);
+        $id = (int) $id;
+        $user = $this->m->where('UserID', $id)->first();
+        if(!$user){
+            return response()->json(['Status'=> false ,'Message' => 'Not Found', 'Code'=> 400], 200);
         }
         else{
             return response()->json([
-                    'STATUS'=>'true',
-                    'MESSAGE'=>'record found',
-                    'DATA' => $products
+                    'Status'=>'true',
+                    'Message'=>'record found',
+                    'User' => $user
             ], 200);
         }       
     }
