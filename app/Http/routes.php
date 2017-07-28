@@ -19,7 +19,8 @@ Route::get('/', function () {
 });*/
  Route::group(['prefix' => 'api/v1'], function () { 
     Route::get('users/fb_id/{id}',  'MemberControllerl@show');
-    Route::get('users/birthday/{birthday}/gender/{gender}', 'MemberControllerl@create');
+    Route::get('users/{userid}/{birthday}/{gender}', 'MemberControllerl@create');
+    Route::get('users/show', 'MemberControllerl@index');
  });
 /* ================== Homepage + Admin Routes ================== */
 

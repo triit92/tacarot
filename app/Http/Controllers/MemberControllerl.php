@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Member;
 use DB;
-
+use APP\Helpers\SumNumber;
 use App\Http\Requests;
 
 class MemberControllerl extends Controller
@@ -17,7 +17,19 @@ class MemberControllerl extends Controller
  
     public function index()
     {
-        die('afsaf');
+        $dates = new \DateTime();
+        $time = $dates->format('m-d');
+        $catarot = DB::table('lovetodayinfos')->where('ngay', 'LIKE', '%'.$time.'%')->get();
+        if(!$catarot){
+            return response()->json(['Status'=> false ,'Message' => 'Not Found', 'Code'=> 400], 200);
+        }
+        else{
+            return response()->json([
+                'Status'=>'true',
+                'Message'=>'record found',
+                'Lovetoday' => $catarot
+            ], 200);
+        }
     }
 
     /**
@@ -25,11 +37,26 @@ class MemberControllerl extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($birthday, $gender)
+    public function create($userid, $birthday, $gender)
     {
-        $item = [
-            'UserID' => 
-        ];
+        $userid = addslashes($userid);
+        $birth = addslashes($birthday);
+        $gende = addslashes($gender);
+        $time = new \DateTime();
+        $user = $this->m->where('UserID', $userid)->first();
+        if(!$user){
+            $item = [
+                'UserID' => $userid,
+                'birthday' => $birth,
+                'Gender' => $gende,
+                'created_at' => $time
+            ];
+            $this->m->insert($item);
+            return response()->json(['Status'=> true ,'Message' => 'Ok', 'Code'=> 200], 200);
+        }else{
+            return response()->json(['Status'=> false ,'Message' => 'UserId exist', 'Code'=> 400], 200);
+        }
+
     }
 
     /**
@@ -40,8 +67,7 @@ class MemberControllerl extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();
-        return $input;
+
     }
 
     /**

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="af80ae43-9f62-45c6-9bda-c63b56267d06" name="User" url="http://43.239.223.133">
+        <fileTransfer host="43.239.223.133" port="60970" rootFolder="/home/12cunghoangdao.app.smevn.com/local" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="60970" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
