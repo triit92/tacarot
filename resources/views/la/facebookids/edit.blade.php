@@ -30,13 +30,7 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				{!! Form::model($facebookid, ['route' => [config('laraadmin.adminRoute') . '.facebookids.update', $facebookid->id ], 'method'=>'PUT', 'id' => 'facebookid-edit-form']) !!}
-					@la_form($module)
-					
-					{{--
-					@la_input($module, 'UserID')
-					@la_input($module, 'birthday')
-					@la_input($module, 'Gender')
-					--}}
+					@la_form($module) 
                     <br>
 					<div class="form-group">
 						{!! Form::submit( 'Cập nhật', ['class'=>'btn btn-success']) !!} <button class="btn btn-default pull-right"><a href="{{ url(config('laraadmin.adminRoute') . '/facebookids') }}">Cancel</a></button>

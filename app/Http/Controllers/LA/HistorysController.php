@@ -16,6 +16,7 @@ use Datatables;
 use Collective\Html\FormFacade as Form;
 use Dwij\Laraadmin\Models\Module;
 use Dwij\Laraadmin\Models\ModuleFields;
+use App\Helpers\SumNumber;
 
 use App\Models\History;
 
@@ -222,8 +223,33 @@ class HistorysController extends Controller
 					$data->data[$i][$j] = ModuleFields::getFieldValue($fields_popup[$col], $data->data[$i][$j]);
 				}
 				if($col == $this->view_col) {
-					$data->data[$i][$j] = '<a href="'.url(config('laraadmin.adminRoute') . '/historys/'.$data->data[$i][0]).'">'.$data->data[$i][$j].'</a>';
+					$data->data[$i][$j] = '<a href="'.url(config('laraadmin.adminRoute') . '/historys/'.$data->data[$i][0]).'">'.$data->data[$i][$j].'</a>'; 
+
 				}
+				if($j == 2){
+					$data->data[$i][$j] = date("d/m/Y", strtotime($data->data[$i][$j]));
+				}
+				if($j == 4 || $j == 6 || $j == 8 || $j == 10){
+					$item =$data->data[$i][$j];
+					if($item == 0){
+						$data->data[$i][$j] = 'Null';
+					}else{
+						switch ($item) {
+						case '100':
+							$data->data[$i][$j] = 'Nhép';
+							break;
+						case '101':
+							$data->data[$i][$j] = 'Cơ';
+							break;
+						case '102':
+							$data->data[$i][$j] = 'Bích';
+							break; 
+						default:
+							$data->data[$i][$j] = 'Rô';
+							break;
+						}
+					} 
+				}  
 				// else if($col == "author") {
 				//    $data->data[$i][$j];
 				// }
@@ -242,7 +268,8 @@ class HistorysController extends Controller
 				}
 				$data->data[$i][] = (string)$output;
 			}
-		}
+		} 
+		//SumNumber::pre($data);
 		$out->setData($data);
 		return $out;
 	}

@@ -136,7 +136,7 @@ class FacebookidsController extends Controller
 	{
 		if(Module::hasAccess("Facebookids", "edit")) {			
 			$facebookid = Facebookid::find($id);
-			if(isset($facebookid->id)) {	
+			if(isset($facebookid->id)) {	 
 				$module = Module::get('Facebookids');
 				
 				$module->row = $facebookid;
@@ -218,11 +218,31 @@ class FacebookidsController extends Controller
 		for($i=0; $i < count($data->data); $i++) {
 			for ($j=0; $j < count($this->listing_cols); $j++) { 
 				$col = $this->listing_cols[$j];
-				if($fields_popup[$col] != null && starts_with($fields_popup[$col]->popup_vals, "@")) {
+				if($fields_popup[$col] != null && starts_with($fields_popup[$col]->popup_vals, "@")) { 
 					$data->data[$i][$j] = ModuleFields::getFieldValue($fields_popup[$col], $data->data[$i][$j]);
 				}
 				if($col == $this->view_col) {
-					$data->data[$i][$j] = '<a href="'.url(config('laraadmin.adminRoute') . '/facebookids/'.$data->data[$i][0]).'">'.$data->data[$i][$j].'</a>';
+					$data->data[$i][$j] = '<a href="'.url(config('laraadmin.adminRoute') . '/facebookids/'.$data->data[$i][0]).'">'.$data->data[$i][$j].'</a>'; 
+					if(!empty($data->data[$i][2])){
+						$d = substr($data->data[$i][2], 0, 2);
+						$m = substr($data->data[$i][2], 2, 2);
+						$y = substr($data->data[$i][2], 4, 8); 
+						$data->data[$i][2] = $d.'/'.$m.'/'.$y;
+					} 
+					if(!empty($data->data[$i][3])){
+						$item = $data->data[$i][3]; 
+						switch ($item) {
+							case 1:
+								$data->data[$i][3] = 'Nam';
+								break;
+							case 2: 
+								$data->data[$i][3] = 'Nữ';
+								break;
+							default:
+								$data->data[$i][3] = '3D';
+								break;
+						} 
+					}
 				}
 				// else if($col == "author") {
 				//    $data->data[$i][$j];
@@ -230,7 +250,7 @@ class FacebookidsController extends Controller
 			}
 			
 			if($this->show_action) {
-				$output = '';
+				$output = ''; 
 				if(Module::hasAccess("Facebookids", "edit")) {
 					$output .= '<a href="'.url(config('laraadmin.adminRoute') . '/facebookids/'.$data->data[$i][0].'/edit').'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
 				}
@@ -242,8 +262,8 @@ class FacebookidsController extends Controller
 				}
 				$data->data[$i][] = (string)$output;
 			}
-		}
-		$out->setData($data);
+		} 
+		$out->setData($data); 
 		return $out;
 	}
 }

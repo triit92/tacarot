@@ -90,4 +90,8 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== Tarotcards ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/tarotcards', 'LA\TarotcardsController');
 	Route::get(config('laraadmin.adminRoute') . '/tarotcard_dt_ajax', 'LA\TarotcardsController@dtajax');
+
+	/* ================== Descriptions ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/descriptions', 'LA\DescriptionsController');
+	Route::get(config('laraadmin.adminRoute') . '/description_dt_ajax', 'LA\DescriptionsController@dtajax');
 });
